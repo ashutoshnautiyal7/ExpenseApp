@@ -2,28 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class NewTransaction extends StatelessWidget {
-  // late String titleInput;
-  // late String amountInput;
-
-  //  the alernative way of taking the title input and the amount input is down
-  final titleController =
-      TextEditingController(); // these controller listens user ip and saves the user input
-  final amountController = TextEditingController();
-
+class NewTransaction extends StatefulWidget {
   final Function addTx;
 
-  NewTransaction(this.addTx); // consturctor
+  NewTransaction(this.addTx);
+  @override
+  State<NewTransaction> createState() => _NewTransactionState();
+}
 
+class _NewTransactionState extends State<NewTransaction> {
+  // late String titleInput;
+  final titleController = TextEditingController();
+  // these controller listens user ip and saves the user input
+  final amountController = TextEditingController();
+
+  // consturctor
   void submitData() {
     final enteredTitle = titleController.text;
     final enteredAmount = double.parse(amountController.text);
 
     if (enteredTitle.isEmpty || enteredAmount <= 0) return;
-    addTx(
+    widget.addTx(
       enteredTitle,
       enteredAmount,
     );
+
+    Navigator.of(context).pop();
   }
 
   @override

@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:first_app/widgets/new_transaction.dart';
 import 'package:first_app/widgets/transaction_list.dart';
-import 'package:first_app/widgets/user_transactions.dart';
+import 'package:first_app/widgets/transaction_list.dart';
 import 'package:flutter/material.dart';
 import 'models/transaction.dart';
 import 'widgets/transaction_list.dart';
@@ -17,12 +17,66 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Expense App',
       home: MyHomePage(),
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+        // accentColor: Colors.amber,
+      ), // difining the colors fonts and other things for later use
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  // let's create a method to open the floating sheet d
+class MyHomePage extends StatefulWidget {
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final List<Transaction> _userTransactions = [
+    // Transaction(
+    //   id: 't1',
+    //   title: 'New shoes',
+    //   amount: 99.99,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 't2',
+    //   title: 'Weekly grocerries',
+    //   amount: 999.99,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 't3',
+    //   title: 'monthly grocerries',
+    //   amount: 199.99,
+    //   date: DateTime.now(),
+    // ),
+  ];
+
+  void _addNewTransaction(String txTitle, double txAmount) {
+    final newTx = Transaction(
+      id: DateTime.now().toString(),
+      title: txTitle,
+      amount: txAmount,
+      date: DateTime.now(),
+    );
+
+    setState(() {
+      _userTransactions.add(newTx);
+    });
+  }
+
+  // let's create a method to open the floating sheet
+  void _startAddNewTransaction(BuildContext ctx) {
+    showModalBottomSheet(
+        context: ctx,
+        builder: (_) {
+          return GestureDetector(
+            onTap: () {},
+            child: NewTransaction(_addNewTransaction),
+            behavior: HitTestBehavior.opaque,
+          );
+        });
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +84,9 @@ class MyHomePage extends StatelessWidget {
         backgroundColor: Colors.deepPurple,
         title: Text('Expense App'),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.add)),
+          IconButton(
+              onPressed: () => _startAddNewTransaction(context),
+              icon: Icon(Icons.add)),
         ],
       ),
       body: SingleChildScrollView(
@@ -47,14 +103,14 @@ class MyHomePage extends StatelessWidget {
                 elevation: 15,
               ),
             ),
-            UserTransactions(),
+            TransactionList(_userTransactions),
           ],
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () => _startAddNewTransaction(context),
       ),
     );
   }
