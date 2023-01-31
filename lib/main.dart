@@ -1,5 +1,7 @@
+import 'dart:ffi';
 import 'dart:ui';
 
+import 'package:first_app/widgets/chart.dart';
 import 'package:first_app/widgets/new_transaction.dart';
 import 'package:first_app/widgets/transaction_list.dart';
 import 'package:first_app/widgets/transaction_list.dart';
@@ -95,6 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            Chart(_userTransactions),
             Container(
               width: double.infinity,
               child: Card(
