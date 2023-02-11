@@ -91,32 +91,39 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget build(BuildContext context) {
+    // storing the appbar in the appbar variable
+    final appBar = AppBar(
+      backgroundColor: Colors.deepPurple,
+      title: Text('Expense App'),
+      actions: [
+        IconButton(
+            onPressed: () => _startAddNewTransaction(context),
+            icon: Icon(Icons.add)),
+      ],
+    );
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
-        title: Text('Expense App'),
-        actions: [
-          IconButton(
-              onPressed: () => _startAddNewTransaction(context),
-              icon: Icon(Icons.add)),
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         // the other way is you can wrap transactions list in container and define some height to it
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Chart(_userTransactions),
             Container(
-              width: double.infinity,
-              // child: Card(
-              //   color: Colors.deepPurple,
-              //   child: Text('CHART'),
-              //   elevation: 15,
-              // ),
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.4,
+              child: Chart(_userTransactions),
             ),
-            TransactionList(_userTransactions, _deleteTransaction),
+            Container(
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.6,
+              child: TransactionList(_userTransactions, _deleteTransaction),
+            ),
           ],
         ),
       ),
