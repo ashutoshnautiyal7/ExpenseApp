@@ -122,3 +122,5 @@ class TransactionList extends StatelessWidget {
               ));
   }
 }
+
+//  done with the stuffs now will be calculating the size dynamically 
