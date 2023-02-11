@@ -84,7 +84,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _deleteTransaction(String id) {
     setState(() {
-      _userTransactions.removeWhere((tx) => tx.id == id  );  // removeWhere removes a item when a certaion condition is met 
+      _userTransactions.removeWhere((tx) =>
+          tx.id ==
+          id); // removeWhere removes a item when a certaion condition is met
     });
   }
 
@@ -108,13 +110,13 @@ class _MyHomePageState extends State<MyHomePage> {
             Chart(_userTransactions),
             Container(
               width: double.infinity,
-              child: Card(
-                color: Colors.deepPurple,
-                child: Text('CHART'),
-                elevation: 15,
-              ),
+              // child: Card(
+              //   color: Colors.deepPurple,
+              //   child: Text('CHART'),
+              //   elevation: 15,
+              // ),
             ),
-            TransactionList(_userTransactions , _deleteTransaction ),
+            TransactionList(_userTransactions, _deleteTransaction),
           ],
         ),
       ),

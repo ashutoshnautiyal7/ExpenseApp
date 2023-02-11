@@ -9,12 +9,12 @@ class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
   final Function deleteTx;
 
-  TransactionList(this.transactions, this.deleteTx );
+  TransactionList(this.transactions, this.deleteTx);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 400,
+        height: 490,
         child: transactions.isEmpty
             ? Column(
                 children: [
@@ -112,7 +112,8 @@ class TransactionList extends StatelessWidget {
                       trailing: IconButton(
                         icon: Icon(Icons.delete),
                         color: Theme.of(context).errorColor,
-                        onPressed: ()  => deleteTx(transactions[index].id),     // NOTE: since our deleteTx fuctnion takes argument but onPressed don't pass any argument so we'll wrap this into anonymous function 
+                        onPressed: () => deleteTx(transactions[index]
+                            .id), // NOTE: since our deleteTx fuctnion takes argument but onPressed don't pass any argument so we'll wrap this into anonymous function
                       ),
                     ),
                   );
