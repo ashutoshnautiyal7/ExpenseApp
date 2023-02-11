@@ -21,7 +21,8 @@ class MyApp extends StatelessWidget {
       home: MyHomePage(),
       theme: ThemeData(
         primarySwatch: Colors.purple,
-        // accentColor: Colors.amber,
+        accentColor: Colors.amber,
+        errorColor: Colors.red,
       ), // difining the colors fonts and other things for later use
     );
   }
@@ -53,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //   date: DateTime.now(),
     // ),
   ];
-
+//  helow
   void _addNewTransaction(
       String txTitle, double txAmount, DateTime chosenDate) {
     final newTx = Transaction(
@@ -79,6 +80,12 @@ class _MyHomePageState extends State<MyHomePage> {
             behavior: HitTestBehavior.opaque,
           );
         });
+  }
+
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransactions.removeWhere((tx) => tx.id == id  );  // removeWhere removes a item when a certaion condition is met 
+    });
   }
 
   Widget build(BuildContext context) {
@@ -107,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 elevation: 15,
               ),
             ),
-            TransactionList(_userTransactions),
+            TransactionList(_userTransactions , _deleteTransaction ),
           ],
         ),
       ),
