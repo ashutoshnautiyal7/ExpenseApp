@@ -14,21 +14,23 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return transactions.isEmpty
-        ? Column(
-            children: [
-              Text('No transactions added yet'),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                height: 200,
-                child: Image.asset(
-                  'assets/images/ronaldo.jpg',
-                  fit: BoxFit.cover,
+        ? LayoutBuilder(builder: (ctx, constraints) {
+            return Column(
+              children: [
+                Text('No transactions added yet'),
+                SizedBox(
+                  height: 20,
                 ),
-              )
-            ],
-          )
+                Container(
+                  height: constraints.maxHeight * 0.6,
+                  child: Image.asset(
+                    'assets/images/ronaldo.jpg',
+                    fit: BoxFit.cover,
+                  ),
+                )
+              ],
+            );
+          })
         : ListView.builder(
             // its the alternative for scroll view which won't give us errors. Note it is to be used inside container else will give errors. note: container needs to be given some height else nothing will be rendered
 
@@ -55,8 +57,8 @@ class TransactionList extends StatelessWidget {
                     transactions[index].title,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
-                  subtitle:
-                      Text(DateFormat.yMMM().format(transactions[index].date)),
+                  subtitle: Text(
+                      DateFormat.yMMMEd().format(transactions[index].date)),
                   trailing: IconButton(
                     icon: Icon(Icons.delete),
                     color: Theme.of(context).errorColor,

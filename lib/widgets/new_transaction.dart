@@ -56,53 +56,61 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        // since container have padding and margin args so we wrapped our  column with the container
-        padding: EdgeInsets.all(10),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-          TextField(
-            decoration: InputDecoration(labelText: 'Title'),
-            // onChanged takes a function that takes the String argument but returns nothing
-            // onChanged: (val) {
-            //   // so we are creating a anonumous function
-            //   titleInput = val;
-            // },
+    return SingleChildScrollView(
+      // so we can scroll the form for filling up the details
+      child: Card(
+        child: Container(
+          // since container have padding and margin args so we wrapped our  column with the container
+          padding: EdgeInsets.only(
+            top: 10,
+            left: 10,
+            right: 10,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+          ),
+          child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+            TextField(
+              decoration: InputDecoration(labelText: 'Title'),
+              // onChanged takes a function that takes the String argument but returns nothing
+              // onChanged: (val) {
+              //   // so we are creating a anonumous function
+              //   titleInput = val;
+              // },
 
-            controller: _titleController,
-            onSubmitted: (_) => _submitData,
-          ),
-          TextField(
-            decoration: InputDecoration(labelText: 'Amount'),
-            // onChanged: (val) {
-            //   // so we are creating a anonumous function
-            //   amountInput = val;
-            // },
-            controller: _amountController,
-            keyboardType: TextInputType.number,
-            onSubmitted: (_) => _submitData,
-          ),
-          Container(
-            height: 70,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(_selectedDate == null
-                      ? 'no date chosen '
-                      : DateFormat.yMd().format(_selectedDate).toString()),
-                ),
-                ElevatedButton(
-                  child: Text('choose date'),
-                  onPressed: _presentDatePicker,
-                )
-              ],
+              controller: _titleController,
+              onSubmitted: (_) => _submitData,
             ),
-          ),
-          TextButton(
-            child: Text('Add Transaction'),
-            onPressed: _submitData,
-          )
-        ]),
+            TextField(
+              decoration: InputDecoration(labelText: 'Amount'),
+              // onChanged: (val) {
+              //   // so we are creating a anonumous function
+              //   amountInput = val;
+              // },
+              controller: _amountController,
+              keyboardType: TextInputType.number,
+              onSubmitted: (_) => _submitData,
+            ),
+            Container(
+              height: 70,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(_selectedDate == null
+                        ? 'no date chosen '
+                        : DateFormat.yMd().format(_selectedDate).toString()),
+                  ),
+                  ElevatedButton(
+                    child: Text('choose date'),
+                    onPressed: _presentDatePicker,
+                  )
+                ],
+              ),
+            ),
+            TextButton(
+              child: Text('Add Transaction'),
+              onPressed: _submitData,
+            )
+          ]),
+        ),
       ),
     );
   }
