@@ -47,7 +47,8 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
+  // widgetsbinding observer for app lifecycle stuff
   final List<Transaction> _userTransactions = [];
 //  helow
   void _addNewTransaction(
@@ -65,6 +66,25 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   bool _showChart = false;
+
+  //  adding new method for the  applifecycle part
+  didChangeAppLifecycleState(AppLifecycleState state) {
+    //this method is called whenever the app reaches to a new state in the lifecycle
+    print(state); //
+  }
+
+  // setting up  a listener to trigger the dispose method
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
+
+  dispose() {
+    // WidgetsBinding.instance.removeObserver(observer)
+    WidgetsBinding.instance.removeObserver(this);
+    super
+        .dispose(); // in dispose you clear all listners you have in the lifecycle
+  }
 
   List<Transaction> get _recentTransactions {
     return _userTransactions.where((tx) {
@@ -143,6 +163,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget build(BuildContext context) {
+    // context builds the skeleton of your widget tree---> it shows how the widgets are related to each other
+
+    //   context also holds the position J of widgets in the widget tree
     // checking weather our device is in landscape mode or not
 
     final mediaQuery = MediaQuery.of(context);

@@ -9,6 +9,14 @@ class TransactionItem extends StatelessWidget {
     required this.deleteTx,
   }) : super(key: key);
 
+  //  every widget can have a key
+  //  stateless widgets don't need a key
+  // key is a must have in certain scenarios only
+
+//
+
+  // transaction item renders a card
+
   final Transaction transaction;
   final Function deleteTx;
 
