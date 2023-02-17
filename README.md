@@ -1,3 +1,3 @@
 # Expense App
 
-This is the expense app to trach your weekly expense designed using flutter and dart. 
+This is the expense app to track your weekly expense designed using flutter and dart. 
